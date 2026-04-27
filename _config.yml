@@ -1,8 +1,30 @@
+# Informasi Dasar Situs
 title: Underground Coder
-baseurl: "/undergroundc0der.github.io" # Kosongkan jika menggunakan domain utama, isi "/nama-repo" jika repo proyek
-url: "https://undergroundc0der.github.io"
+email: arcacoder@gmail.com
+description: >- # Deskripsi singkat situs Anda
+  Portal pembelajaran Exploit Development dan Cybersecurity.
+baseurl: "" # Kosongkan jika menggunakan domain username.github.io
+url: "" # Link web Anda nantinya
 
+# Konfigurasi Collections (PENTING!)
+# Ini yang membuat folder _materi terbaca sebagai daftar materi otomatis
 collections:
   materi:
     output: true
-    permalink: /:collection/:path/ # Opsional: jika ingin otomatis tanpa tulis permalink di tiap file
+    permalink: /:collections/:path/
+
+# Pengaturan Build
+markdown: kramdown
+highlighter: rouge
+lsi: false
+
+# Pengaturan Exclude
+# File atau folder yang tidak perlu diproses oleh Jekyll
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
