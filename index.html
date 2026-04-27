@@ -74,10 +74,9 @@
 
         .terminal-header h1 span { color: var(--primary); }
 
-        /* --- SEARCH BOX (MINIMALIS & KANAN) --- */
         .search-area {
             display: flex;
-            justify-content: flex-end; /* Memaksa ke kanan */
+            justify-content: flex-end;
             margin-bottom: 10px;
         }
 
@@ -88,7 +87,7 @@
             border: 1px solid #222;
             padding: 4px 12px;
             border-radius: 4px;
-            width: 180px; /* Lebar tetap kecil seperti awal */
+            width: 180px;
         }
 
         .search-wrapper span {
@@ -111,7 +110,6 @@
 
         .search-input::placeholder { color: #444; }
 
-        /* --- MATERI LIST --- */
         .materi-list {
             background: #0a0a0a;
             border: 1px solid #222;
@@ -159,14 +157,9 @@
             color: #444;
         }
 
-        .status-badge {
-            margin-left: auto;
-            font-size: 0.7em;
-            color: #888; 
-            border: 1px solid #333;
-            padding: 2px 8px;
-            border-radius: 3px;
-        }
+        /* Logic for Search Display */
+        .is-searching #originalContainer { display: none; }
+        .not-searching #searchResults { display: none; }
 
         footer {
             background: var(--panel);
@@ -197,32 +190,25 @@
         <div class="search-area">
             <div class="search-wrapper">
                 <span>grep</span>
-                <input type="text" id="materiSearch" class="search-input" placeholder="filter..." onkeyup="filterMateri()">
+                <input type="text" id="materiSearch" class="search-input" placeholder="filter...">
             </div>
         </div>
 
-        <nav class="materi-list">
-
-            <div id="materiContainer">
-
-				
-				{% assign materi_per_kategori = site.materi | group_by: "kategori" %}
-				  
-				{% for group in materi_per_kategori %}
-				<span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{{ group.name }}</span>
-				
-				
-				
-		
-				  {% assign items_urut = group.items | sort: "order" %}
-				  {% for item in items_urut %}
-					<a href="{{ item.url }}" class="materi-item">
-						{{ item.title }}
-					</a>
-					{% endfor %}
-					
-				{% endfor %}  
+        <nav id="materiWrapper" class="materi-list not-searching">
+            
+            <div id="originalContainer">
+                {% assign materi_per_kategori = site.materi | group_by: "kategori" %}
+                {% for group in materi_per_kategori %}
+                    <span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{{ group.name }}</span>
+                    {% assign items_urut = group.items | sort: "order" %}
+                    {% for item in items_urut %}
+                        <a href="{{ item.url }}" class="materi-item">{{ item.title }}</a>
+                    {% endfor %}
+                {% endfor %}
             </div>
+
+            <div id="searchResults"></div>
+
         </nav>
     </main>
 
@@ -230,18 +216,52 @@
         &copy; 2026 <span style="color: #aaa;">Underground Coder</span>
     </footer>
 
-    <script>
-        function filterMateri() {
-            const input = document.getElementById('materiSearch');
-            const filter = input.value.toLowerCase();
-            const container = document.getElementById('materiContainer');
-            const items = container.getElementsByClassName('materi-item');
+    <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
 
-            for (let i = 0; i < items.length; i++) {
-                const text = items[i].textContent || items[i].innerText;
-                items[i].style.display = text.toLowerCase().includes(filter) ? "" : "none";
+    <script>
+        // Inisialisasi Search
+        const sjs = SimpleJekyllSearch({
+            searchInput: document.getElementById('materiSearch'),
+            resultsContainer: document.getElementById('searchResults'),
+            json: '/search.json',
+            // Template dibuat agar mirip dengan grup kategori asli
+            searchResultTemplate: `
+                <div class="result-group" data-category="{category}">
+                    <span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{category}</span>
+                    <a href="{url}" class="materi-item">{title}</a>
+                </div>
+            `,
+            noResultsText: '<p class="materi-item" style="color: #ff4444;">[!] No matching records found</p>',
+            success: function() {
+                formatSearchGroups();
             }
+        });
+
+        // Fungsi untuk merapikan grup kategori agar label tidak duplikat
+        function formatSearchGroups() {
+            const results = document.getElementById('searchResults');
+            const groups = results.querySelectorAll('.result-group');
+            let lastCat = "";
+
+            groups.forEach(group => {
+                let currentCat = group.getAttribute('data-category');
+                if (currentCat === lastCat) {
+                    const label = group.querySelector('.list-label');
+                    if (label) label.remove();
+                }
+                lastCat = currentCat;
+            });
         }
+
+        // Toggle tampilan antara Daftar Asli vs Hasil Search
+        document.getElementById('materiSearch').addEventListener('input', function() {
+            const wrapper = document.getElementById('materiWrapper');
+            if (this.value.length > 0) {
+                wrapper.classList.replace('not-searching', 'is-searching');
+            } else {
+                wrapper.classList.replace('is-searching', 'not-searching');
+            }
+        });
     </script>
 </body>
 </html>

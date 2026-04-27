@@ -1,0 +1,14 @@
+---
+layout: none
+---
+[
+  {% assign materi_sorted = site.materi | sort: "kategori" %}
+  {% for post in materi_sorted %}
+    {
+      "title"    : {{ post.title | jsonify }},
+      "category" : {{ post.kategori | jsonify }},
+      "url"      : "{{ site.baseurl }}{{ post.url }}",
+      "content"  : {{ post.content | strip_html | strip_newlines | jsonify }}
+    } {% unless forloop.last %},{% endunless %}
+  {% endfor %}
+]
