@@ -281,21 +281,7 @@
                 <input type="text" class="search-input" placeholder="Search modules..." onkeyup="filterMenu(this)">
             </div>
 
-			  {% assign materi_per_kategori = site.materi | group_by: "kategori" %}
-			  
-			  {% for group in materi_per_kategori %}
-				<h4>{{ group.name }}</h4> <ul>
-				  {% assign items_urut = group.items | sort: "urutan" %}
-				  {% for item in items_urut %}
-					<li>
-					  <a href="{{ item.url }}" {% if page.url == item.url %}class="active"{% endif %}>
-						{{ item.title }}
-					  </a>
-					</li>
-				  {% endfor %}
-				</ul>
-			  {% endfor %}
-			
+
 			
 			{% assign materi_per_kategori = site.materi | group_by: "kategori" %}
 			  
@@ -303,7 +289,7 @@
 			<div class="nav-section" id="sec-basics">
 			<button class="category-trigger" onclick="toggleSection('sec-basics')">{{ group.name }</button>
 				<div class="nav-content">
-			  {% assign items_urut = group.items | sort: "urutan" %}
+			  {% assign items_urut = group.items | sort: "order" %}
 			  {% for item in items_urut %}
 				<li>
 				  <a href="{{ item.url }}" {% if page.url == item.url %}class="active"{% endif %}>

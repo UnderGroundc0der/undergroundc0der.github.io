@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UGC - Exploit Dev Portal</title>
+    <title>Exploit Development - Underground Coder</title>
     <style>
         :root {
             --primary: #00ff00;
@@ -189,7 +189,7 @@
 
     <main class="portal-container">
         <div class="terminal-header">
-            <h1>guest@ugc:~/<span>materi_pembelajaran</span>$ ls</h1>
+            <h1>coder@term:~/<span></span>$ ls -la</h1>
         </div>
 
         <div class="search-area">
@@ -229,6 +229,23 @@
                     0x05 Automated Fuzzing with Python
                     <span class="status-badge">DRAFT</span>
                 </a>
+				
+				{% assign materi_per_kategori = site.materi | group_by: "kategori" %}
+				  
+				{% for group in materi_per_kategori %}
+				<span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{{group.name}}</span>
+				
+				
+				
+		
+				  {% assign items_urut = group.items | sort: "order" %}
+				  {% for item in items_urut %}
+					<a href="{{item.url}}" class="materi-item">
+						{{item.title}}
+					</a>
+					{% endfor %}
+					
+				{% endfor %}  
             </div>
         </nav>
     </main>
