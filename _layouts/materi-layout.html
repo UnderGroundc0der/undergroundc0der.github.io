@@ -291,11 +291,6 @@
 				<div class="nav-content">
 			  {% assign items_urut = group.items | sort: "order" %}
 			  {% for item in items_urut %}
-				<li>
-				  <a href="{{ item.url }}" {% if page.url == item.url %}class="active"{% endif %}>
-					{{ item.title }}
-				  </a>
-				</li>
 				<a href="{{ item.url }}" class="side-link {% if page.url == item.url %}active{% endif %}">{{ item.title }}</a>
 			  {% endfor %}
 				</div>
