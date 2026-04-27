@@ -287,7 +287,7 @@
 			  
 			{% for group in materi_per_kategori %}
 			<div class="nav-section" id="sec-basics">
-			<button class="category-trigger" onclick="toggleSection('sec-basics')">{{ group.name }</button>
+			<button class="category-trigger" onclick="toggleSection('sec-basics')">{{ group.name }}</button>
 				<div class="nav-content">
 			  {% assign items_urut = group.items | sort: "order" %}
 			  {% for item in items_urut %}
