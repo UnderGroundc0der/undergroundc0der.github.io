@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page.title}} - Underground Coder</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #00ff00;
+            --bg: #0d0d0d;
+            --panel: #151515;
+            --text: #c0c0c0;
+            --header-h: 60px;
+            --sidebar-w: 280px;
+            --max-width: 1200px;
+            --search-bg: #0a0a0a;
+            --accent: #ff9900;
+        }
+
+        body { 
+            background-color: var(--bg); 
+            color: var(--text); 
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0; 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- STICKY HEADER --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: var(--header-h);
+            background: var(--panel);
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .group-logo {
+            color: var(--primary);
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        /* --- SEARCH BOX --- */
+        .search-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            background: var(--search-bg);
+            border: 1px solid #333;
+            padding: 10px 15px;
+            color: var(--primary);
+            font-family: "Courier New", monospace;
+            font-size: 0.85em;
+            box-sizing: border-box;
+            border-radius: 4px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .search-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+        }
+
+        /* --- ACCORDION SYSTEM --- */
+        .nav-section {
+            margin-bottom: 5px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .category-trigger {
+            width: 100%;
+            background: none;
+            border: none;
+            color: #b0b0b0; /* Kecerahan ditingkatkan dari #555 */
+            font-family: "Courier New", monospace;
+            font-size: 0.75em;
+            letter-spacing: 1.5px;
+            text-align: left;
+            padding: 12px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .category-trigger:hover { 
+            color: var(--primary); 
+        }
+        
+        .category-trigger::after {
+            content: '>';
+            font-size: 10px;
+            transition: transform 0.3s;
+            transform: rotate(90deg);
+        }
+
+        .nav-section.collapsed .category-trigger::after {
+            transform: rotate(0deg);
+        }
+
+        .nav-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+        }
+
+        .nav-section.collapsed .nav-content {
+            max-height: 0;
+        }
+
+        .side-link {
+			display: block;
+			padding: 8px 15px;
+			color: var(--text-muted);
+			text-decoration: none;
+			font-size: 14px;
+			border-left: 2px solid #333; /* Garis abu-abu di sisi kiri  */
+			transition: all 0.3s ease;
+			margin-bottom: 2px;
+		}
+		
+		.side-link:hover {
+			background: rgba(0, 255, 0, 0.05);
+			color: var(--accent);
+			border-left: 2px solid var(--accent); /* Berubah menjadi hijau saat hover  */
+			padding-left: 20px; /* Efek sedikit bergeser ke kanan agar lebih dinamis */
+		}
+
+        .side-link:hover, .side-link.active {
+            color: var(--primary);
+            border-left: 2px solid var(--primary);
+            background: rgba(0, 255, 0, 0.05);
+        }
+
+        /* --- CONTENT WRAPPER --- */
+        .content-wrapper {
+            margin-top: var(--header-h);
+            margin-left: auto;
+            margin-right: auto;
+            max-width: var(--max-width);
+            padding: 40px 20px;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+            flex: 1;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .sidebar-materi {
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            position: sticky;
+            top: 80px;
+            max-height: calc(100vh - 120px);
+            overflow-y: auto;
+            padding-right: 15px;
+        }
+
+        .sidebar-materi::-webkit-scrollbar { width: 3px; }
+        .sidebar-materi::-webkit-scrollbar-thumb { background: #222; }
+
+        main { flex: 1; min-width: 0; }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb {
+            font-family: "Courier New", monospace;
+            font-size: 0.85em;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        .breadcrumb a { color: #888; text-decoration: none; }
+        .breadcrumb .current { color: var(--primary); }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { 
+            color: #fff; 
+            font-family: "Courier New", monospace;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+
+        h2 { 
+            color: var(--primary); 
+            font-family: "Courier New", monospace; 
+            margin-top: 45px;
+            padding: 10px 15px;
+            border-left: 3px solid var(--primary);
+            background: rgba(0, 255, 0, 0.03);
+            font-size: 1.3em;
+        }
+
+        p { margin-bottom: 20px; text-align: justify; color: #aaa; }
+
+        /* --- CODE BLOCK --- */
+        pre[class*="language-"] {
+            margin-bottom: 25px;
+            border: 1px solid #222;
+            background: #000 !important;
+        }
+        
+        code { background: #222; color: var(--accent); padding: 2px 6px; border-radius: 3px; }
+
+        footer {
+            background: var(--panel);
+            border-top: 1px solid #333;
+            padding: 40px;
+            text-align: center;
+            font-family: "Courier New", monospace;
+            font-size: 0.85em;
+            color: #555;
+            margin-top: auto;
+        }
+
+        .mobile-btn {
+            display: none;
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        .overlay-materi {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 300px; height: 100%;
+            background: var(--panel);
+            z-index: 2000;
+            transition: 0.4s;
+            padding: 25px;
+            overflow-y: auto;
+        }
+
+        .overlay-materi.active { right: 0; }
+
+        @media screen and (max-width: 1024px) {
+            .sidebar-materi { display: none; }
+            .content-wrapper { display: block; padding: 20px; }
+            .mobile-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="group-logo">underground_coder:<span>_></span></a>
+        <button class="mobile-btn" onclick="toggleMateri()">[ MENU ]</button>
+    </header>
+
+    <div id="materiOverlay" class="overlay-materi">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; align-items: center;">
+            <span style="color: #444; font-family: monospace;">EXPLORER</span>
+            <div style="color: var(--primary); font-size: 1.8em; cursor: pointer;" onclick="toggleMateri()">&times;</div>
+        </div>
+        <div id="mobile-nav-container"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <nav class="sidebar-materi" id="desktop-nav">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search modules..." onkeyup="filterMenu(this)">
+            </div>
+
+			  {% assign materi_per_kategori = site.materi | group_by: "kategori" %}
+			  
+			  {% for group in materi_per_kategori %}
+				<h4>{{ group.name }}</h4> <ul>
+				  {% assign items_urut = group.items | sort: "urutan" %}
+				  {% for item in items_urut %}
+					<li>
+					  <a href="{{ item.url }}" {% if page.url == item.url %}class="active"{% endif %}>
+						{{ item.title }}
+					  </a>
+					</li>
+				  {% endfor %}
+				</ul>
+			  {% endfor %}
+			
+			
+			{% assign materi_per_kategori = site.materi | group_by: "kategori" %}
+			  
+			{% for group in materi_per_kategori %}
+			<div class="nav-section" id="sec-basics">
+			<button class="category-trigger" onclick="toggleSection('sec-basics')">{{ group.name }</button>
+				<div class="nav-content">
+			  {% assign items_urut = group.items | sort: "urutan" %}
+			  {% for item in items_urut %}
+				<li>
+				  <a href="{{ item.url }}" {% if page.url == item.url %}class="active"{% endif %}>
+					{{ item.title }}
+				  </a>
+				</li>
+				<a href="{{item.url}}" class="side-link {% if page.url == item.url %}active{% endif %}">{{item.title}}</a>
+			  {% endfor %}
+				</div>
+			</div>
+			{% endfor %}    
+
+            <a href="#" class="side-link" style="color: var(--accent); margin-top: 20px; border: none;">[ ../Back ]</a>
+        </nav>
+
+        <main>
+            <nav class="breadcrumb">
+                <a href="#">root</a> <span>/</span> 
+                <a href="#">{{page.kategori}}</a> <span>/</span> 
+                <span class="current">{{page.title}}</span>
+            </nav>
+
+            <article>
+                {{content}}
+            </article>
+        </main>
+    </div>
+
+    <footer>
+        &copy; 2026 <span>Underground Coder</span><br>
+        <small style="color: #333;">Security is an illusion, anonymity is a choice.</small>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+    <script>
+        function toggleSection(id) {
+            const section = document.getElementById(id);
+            section.classList.toggle('collapsed');
+        }
+
+        function toggleMateri() {
+            const overlay = document.getElementById("materiOverlay");
+            const mobileContainer = document.getElementById("mobile-nav-container");
+            
+            if (!overlay.classList.contains('active')) {
+                mobileContainer.innerHTML = document.getElementById("desktop-nav").innerHTML;
+            }
+            overlay.classList.toggle("active");
+        }
+
+        function filterMenu(input) {
+            let filter = input.value.toUpperCase();
+            let links = document.querySelectorAll(".side-link");
+            let sections = document.querySelectorAll(".nav-section");
+
+            links.forEach(link => {
+                if (link.textContent.toUpperCase().includes(filter)) {
+                    link.style.display = "";
+                    if (filter.length > 0) {
+                        const parentSec = link.closest('.nav-section');
+                        if(parentSec) parentSec.classList.remove('collapsed');
+                    }
+                } else {
+                    link.style.display = "none";
+                }
+            });
+
+            sections.forEach(sec => {
+                const visibleLinks = sec.querySelectorAll('.side-link[style=""]');
+                sec.style.display = (visibleLinks.length === 0 && filter !== "") ? "none" : "block";
+            });
+        }
+
+        window.onload = () => {
+            const activeLink = document.querySelector('.side-link.active');
+            if (activeLink) {
+                const parentSec = activeLink.closest('.nav-section');
+                if(parentSec) parentSec.classList.remove('collapsed');
+            }
+        };
+    </script>
+</body>
+</html>
