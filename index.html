@@ -208,15 +208,15 @@
 				{% assign materi_per_kategori = site.materi | group_by: "kategori" %}
 				  
 				{% for group in materi_per_kategori %}
-				<span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{{group.name}}</span>
+				<span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{{ group.name }}</span>
 				
 				
 				
 		
 				  {% assign items_urut = group.items | sort: "order" %}
 				  {% for item in items_urut %}
-					<a href="{{item.url}}" class="materi-item">
-						{{item.title}}
+					<a href="{{ item.url }}" class="materi-item">
+						{{ item.title }}
 					</a>
 					{% endfor %}
 					

@@ -1,3 +1,8 @@
+title: Underground Coder
+baseurl: "/undergroundc0der.github.io" # Kosongkan jika menggunakan domain utama, isi "/nama-repo" jika repo proyek
+url: "https://undergroundc0der.github.io"
+
 collections:
   materi:
     output: true
+    permalink: /:collection/:path/ # Opsional: jika ingin otomatis tanpa tulis permalink di tiap file
