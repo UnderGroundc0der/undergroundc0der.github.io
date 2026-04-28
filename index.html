@@ -186,6 +186,142 @@
         <div class="terminal-header">
             <h1>coder@term:~/<span></span>$ ls -la</h1>
         </div>
+		
+		<section class="about-section">
+			<div class="terminal-window">
+				<div class="window-header">
+					<span class="dot red"></span>
+					<span class="dot yellow"></span>
+					<span class="dot green"></span>
+					<span class="window-title">about_this_portal.txt</span>
+				</div>
+				<div class="window-body">
+					<p class="typing-text">> Initializing curriculum data...</p>
+					<h2 class="mission-title">MISSION: EXPLOIT DEVELOPMENT MASTER</h2>
+					<p>Selamat datang di <strong>Underground Coder</strong>. Di sini, kamu tidak hanya belajar menggunakan tool, tapi membangunnya dari nol.</p>
+					
+					<div class="roadmap-grid">
+						<div class="step">
+							<span class="step-num">01</span>
+							<h4>Fundamentals</h4>
+							<p>Assembly, Arsitektur CPU, Stack & Heap memory.</p>
+						</div>
+						<div class="step">
+							<span class="step-num">02</span>
+							<h4>Basic Overflow</h4>
+							<p>Buffer overflow, JMP ESP, dan Shellcode injection.</p>
+						</div>
+						<div class="step">
+							<span class="step-num">03</span>
+							<h4>Bypassing</h4>
+							<p>Melawan proteksi modern: ASLR, DEP, dan Stack Canaries.</p>
+						</div>
+						<div class="step">
+							<span class="step-num">04</span>
+							<h4>Mastery</h4>
+							<p>ROP Chains, Heap Grooming, dan Kernel Exploitation.</p>
+						</div>
+					</div>
+					
+					<p class="status-msg">[ STATUS: CURRICULUM_LOADED_100% ]</p>
+				</div>
+			</div>
+		</section>
+
+		<style>
+			.about-section {
+				margin-bottom: 40px;
+				animation: fadeIn 0.8s ease-out;
+			}
+
+			.terminal-window {
+				background: #000;
+				border: 1px solid #333;
+				border-radius: 6px;
+				overflow: hidden;
+				box-shadow: 0 0 20px rgba(0, 255, 0, 0.05);
+			}
+
+			.window-header {
+				background: #1a1a1a;
+				padding: 8px 12px;
+				display: flex;
+				align-items: center;
+				border-bottom: 1px solid #333;
+			}
+
+			.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+			.red { background: #ff5f56; }
+			.yellow { background: #ffbd2e; }
+			.green { background: #27c93f; }
+
+			.window-title {
+				font-family: "Courier New", monospace;
+				font-size: 12px;
+				color: #888;
+				margin-left: 10px;
+			}
+
+			.window-body {
+				padding: 20px;
+				font-family: "Courier New", monospace;
+				color: var(--text-bright);
+			}
+
+			.mission-title {
+				color: var(--primary);
+				font-size: 1.2em;
+				margin: 15px 0;
+				text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+			}
+
+			.roadmap-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+				gap: 15px;
+				margin: 20px 0;
+				border-top: 1px solid #222;
+				padding-top: 20px;
+			}
+
+			.step {
+				background: #0a0a0a;
+				padding: 15px;
+				border: 1px solid #1a1a1a;
+				transition: transform 0.2s;
+			}
+
+			.step:hover {
+				border-color: var(--primary);
+				transform: translateY(-3px);
+			}
+
+			.step-num {
+				color: var(--primary);
+				font-weight: bold;
+				font-size: 0.8em;
+				display: block;
+				margin-bottom: 5px;
+			}
+
+			.step h4 { margin: 0 0 5px 0; font-size: 0.9em; color: #fff; }
+			.step p { margin: 0; font-size: 0.75em; color: #777; line-height: 1.4; }
+
+			.status-msg {
+				font-size: 0.8em;
+				color: var(--primary);
+				opacity: 0.7;
+				margin-top: 15px;
+			}
+
+			@keyframes fadeIn {
+				from { opacity: 0; transform: translateY(10px); }
+				to { opacity: 1; transform: translateY(0); }
+			}
+
+			/* Sembunyikan saat search aktif */
+			.is-searching .about-section { display: none; }
+		</style>
 
         <div class="search-area">
             <div class="search-wrapper">
