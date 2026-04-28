@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exploit Development - Underground Coder</title>
+    <title>{{ page.title }} | Exploit Development - Underground Coder</title>
     <style>
         :root {
             --primary: #00ff00;
@@ -320,7 +320,7 @@
 
         <main>
             <div class="terminal-header">
-                <h1>coder@term:~/<span></span>$ ls -la --root</h1>
+                <h1>coder@term:~/{{ page.title }}<span></span>$ ls -la</h1>
             </div>
 
             <div class="search-area">
@@ -332,14 +332,7 @@
 
             <nav id="materiWrapper" class="materi-list">
                 <div id="originalContainer">
-                    {% for cat_name in site.kategori %}
-                        {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
-                        <a href="{{ '/' | append: category_slug | append: '/' | relative_url }}" ><span class="list-label">./{{ cat_name }}</span></a>
-                        {% assign items_urut = materi_per_kategori | sort: "order" %}
-                        {% for item in items_urut %}
-                            <a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
-                        {% endfor %}
-                    {% endfor %}
+                    {{ content }}
                 </div>
                 <div id="searchResults"></div>
             </nav>
@@ -353,7 +346,6 @@
         <small style="color: #222;">From zero, by zero, for zero, to zero-day</small>
     </footer>
 
-    <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
     <script>
         function toggleAbout() {
             const overlay = document.getElementById('aboutOverlay');
@@ -371,20 +363,6 @@
             }
         }
 
-        // Inisialisasi Search
-        const sjs = SimpleJekyllSearch({
-            searchInput: document.getElementById('materiSearch'),
-            resultsContainer: document.getElementById('searchResults'),
-            json: '/search.json',
-            searchResultTemplate: '<a href="{url}" class="materi-item">{title}</a>',
-            noResultsText: '<p class="materi-item" style="color: #ff4444;">[!] No matching records found</p>'
-        });
-
-        // Kontrol tampilan saat mencari
-        document.getElementById('materiSearch').addEventListener('input', function() {
-            const orig = document.getElementById('originalContainer');
-            orig.style.display = (this.value.length > 0) ? 'none' : 'block';
-        });
     </script>
 </body>
 </html>
