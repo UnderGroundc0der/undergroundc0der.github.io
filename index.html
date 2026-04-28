@@ -1,5 +1,3 @@
----
----
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -13,7 +11,9 @@
             --panel: #151515;
             --text-bright: #e0e0e0; 
             --header-h: 60px;
-            --max-width: 900px;
+            --sidebar-w: 280px;
+            --max-width: 1100px;
+            --accent: #ff9900;
         }
 
         body { 
@@ -27,6 +27,7 @@
             min-height: 100vh;
         }
 
+        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -49,127 +50,126 @@
             letter-spacing: 1px;
         }
 
+        .mobile-controls { display: none; gap: 10px; }
+        .mobile-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 5px 10px;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 0.8em;
+        }
+
+        /* --- LAYOUT STRUCTURE --- */
         .portal-container {
-            margin-top: calc(var(--header-h) + 40px);
-            padding: 0 20px 80px 20px;
+            margin-top: var(--header-h);
+            display: flex;
             max-width: var(--max-width);
             margin-left: auto;
             margin-right: auto;
             width: 100%;
+            gap: 30px;
+            padding: 40px 20px;
             box-sizing: border-box;
         }
 
-        .terminal-header {
-            margin-bottom: 30px;
-            font-family: "Courier New", monospace;
+        /* --- SIDEBAR ABOUT --- */
+        .sidebar-left {
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            position: sticky;
+            top: 80px;
+            height: fit-content;
         }
 
-        .terminal-header h1 {
-            font-size: 1.4em;
-            color: #fff;
-            margin: 0;
-            border-bottom: 1px solid #222;
-            padding-bottom: 10px;
-        }
-
-        .terminal-header h1 span { color: var(--primary); }
-
-        .search-area {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 10px;
-        }
-
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            background: #111;
-            border: 1px solid #222;
-            padding: 4px 12px;
-            border-radius: 4px;
-            width: 180px;
-        }
-
-        .search-wrapper span {
-            font-family: "Courier New", monospace;
-            font-size: 0.75em;
-            color: var(--primary);
-            margin-right: 8px;
-            opacity: 0.8;
-        }
-
-        .search-input {
-            background: transparent;
-            border: none;
-            color: var(--text-bright);
-            font-family: "Courier New", monospace;
-            font-size: 0.8em;
-            outline: none;
-            width: 100%;
-        }
-
-        .search-input::placeholder { color: #444; }
-
-        .materi-list {
+        .about-card {
             background: #0a0a0a;
             border: 1px solid #222;
             border-radius: 4px;
-            padding: 10px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            clear: both;
+            overflow: hidden;
+            font-family: "Courier New", monospace;
         }
 
-        .list-label {
+        .about-card-header {
+            background: #1a1a1a;
+            padding: 8px 12px;
+            font-size: 0.7em;
+            color: #555;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .about-card-body { padding: 15px; }
+        .about-card-body h2 { 
+            color: var(--primary); 
+            font-size: 1em; 
+            margin: 0 0 10px 0; 
+        }
+        .about-card-body p { font-size: 0.8em; color: #888; margin-bottom: 15px; text-align: left; }
+
+        .mini-roadmap { border-top: 1px solid #1a1a1a; padding-top: 10px; }
+        .roadmap-item { display: block; font-size: 0.75em; margin-bottom: 5px; color: #666; }
+        .roadmap-item span { color: var(--primary); margin-right: 5px; }
+
+        /* --- MAIN CONTENT --- */
+        main { flex: 1; min-width: 0; }
+
+        .terminal-header h1 {
             font-family: "Courier New", monospace;
-            font-size: 0.75em;
-            color: #777; 
-            padding: 10px 20px;
-            display: block;
-            letter-spacing: 2px;
-            border-bottom: 1px solid #111;
-            margin-bottom: 5px;
+            font-size: 1.4em;
+            color: #fff;
+            margin: 0 0 20px 0;
+        }
+        .terminal-header h1 span { color: var(--primary); }
+
+        .search-area { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+        .search-wrapper {
+            display: flex; align-items: center;
+            background: #111; border: 1px solid #222;
+            padding: 4px 12px; border-radius: 4px; width: 180px;
+        }
+        .search-wrapper span { font-family: monospace; font-size: 0.75em; color: var(--primary); margin-right: 8px; }
+        .search-input { background: transparent; border: none; color: #fff; outline: none; width: 100%; font-size: 0.8em; }
+
+        .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; padding: 10px 0; }
+        .list-label {
+            font-family: monospace; font-size: 0.75em; color: #777; 
+            padding: 10px 20px; display: block; border-bottom: 1px solid #111;
             text-transform: uppercase;
         }
 
         .materi-item {
-            display: flex;
-            align-items: center;
-            color: var(--text-bright);
-            text-decoration: none;
-            padding: 12px 20px;
-            font-size: 0.95em;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-            font-family: "Courier New", monospace;
+            display: flex; align-items: center; color: var(--text-bright);
+            text-decoration: none; padding: 12px 20px; font-size: 0.95em;
+            font-family: "Courier New", monospace; transition: 0.2s;
         }
+        .materi-item:hover { background: rgba(0,255,0,0.05); color: var(--primary); padding-left: 28px; }
+        .materi-item::before { content: "»"; margin-right: 15px; color: #444; }
 
-        .materi-item:hover {
-            color: var(--primary);
-            background: rgba(0, 255, 0, 0.07);
-            border-left: 3px solid var(--primary);
-            padding-left: 28px;
+        /* --- MOBILE OVERLAY --- */
+        .overlay-about {
+            position: fixed; top: 0; right: -100%; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 2000; transition: 0.4s;
+            padding: 40px 20px; box-sizing: border-box;
         }
-
-        .materi-item::before {
-            content: "»";
-            margin-right: 15px;
-            font-size: 1.2em;
-            color: #444;
-        }
+        .overlay-about.active { right: 0; }
 
         /* Logic for Search Display */
         .is-searching #originalContainer { display: none; }
         .not-searching #searchResults { display: none; }
 
         footer {
-            background: var(--panel);
-            border-top: 1px solid #333;
-            padding: 40px;
-            text-align: center;
-            font-family: "Courier New", monospace;
-            font-size: 0.85em;
-            color: #888; 
-            margin-top: auto;
+            background: var(--panel); border-top: 1px solid #333;
+            padding: 30px; text-align: center; font-family: monospace;
+            font-size: 0.8em; color: #555;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .sidebar-left { display: none; }
+            .mobile-controls { display: flex; }
+            .portal-container { flex-direction: column; padding-top: 20px; }
         }
     </style>
 </head>
@@ -177,192 +177,94 @@
 
     <header>
         <a href="/" class="group-logo">underground_coder:<span>_></span></a>
-        <div style="font-family: 'Courier New', monospace; font-size: 0.8em; color: #777;">
+        <div class="mobile-controls">
+            <button class="mobile-btn" onclick="toggleAbout()">[ ABOUT ]</button>
+        </div>
+        <div class="desktop-status" style="font-family: monospace; font-size: 0.8em; color: #777;">
             <span style="color: var(--primary);">●</span> SYSTEM_ACTIVE
         </div>
     </header>
 
-    <main class="portal-container">
-        <div class="terminal-header">
-            <h1>coder@term:~/<span></span>$ ls -la</h1>
+    <div id="aboutOverlay" class="overlay-about">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <span style="color: var(--primary); font-family: monospace;">> SYSTEM_INFO</span>
+            <button class="mobile-btn" onclick="toggleAbout()">[ CLOSE ]</button>
         </div>
-		
-		<section class="about-section">
-			<div class="terminal-window">
-				<div class="window-header">
-					<span class="dot red"></span>
-					<span class="dot yellow"></span>
-					<span class="dot green"></span>
-					<span class="window-title">about_this_portal.txt</span>
-				</div>
-				<div class="window-body">
-					<p class="typing-text">> Initializing curriculum data...</p>
-					<h2 class="mission-title">MISSION: EXPLOIT DEVELOPMENT MASTER</h2>
-					<p>Selamat datang di <strong>Underground Coder</strong>. Di sini, kamu tidak hanya belajar menggunakan tool, tapi membangunnya dari nol.</p>
-					
-					<div class="roadmap-grid">
-						<div class="step">
-							<span class="step-num">01</span>
-							<h4>Fundamentals</h4>
-							<p>Assembly, Arsitektur CPU, Stack & Heap memory.</p>
-						</div>
-						<div class="step">
-							<span class="step-num">02</span>
-							<h4>Basic Overflow</h4>
-							<p>Buffer overflow, JMP ESP, dan Shellcode injection.</p>
-						</div>
-						<div class="step">
-							<span class="step-num">03</span>
-							<h4>Bypassing</h4>
-							<p>Melawan proteksi modern: ASLR, DEP, dan Stack Canaries.</p>
-						</div>
-						<div class="step">
-							<span class="step-num">04</span>
-							<h4>Mastery</h4>
-							<p>ROP Chains, Heap Grooming, dan Kernel Exploitation.</p>
-						</div>
-					</div>
-					
-					<p class="status-msg">[ STATUS: CURRICULUM_LOADED_100% ]</p>
-				</div>
-			</div>
-		</section>
+        <div id="mobileAboutContent"></div>
+    </div>
 
-		<style>
-			.about-section {
-				margin-bottom: 40px;
-				animation: fadeIn 0.8s ease-out;
-			}
-
-			.terminal-window {
-				background: #000;
-				border: 1px solid #333;
-				border-radius: 6px;
-				overflow: hidden;
-				box-shadow: 0 0 20px rgba(0, 255, 0, 0.05);
-			}
-
-			.window-header {
-				background: #1a1a1a;
-				padding: 8px 12px;
-				display: flex;
-				align-items: center;
-				border-bottom: 1px solid #333;
-			}
-
-			.dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
-			.red { background: #ff5f56; }
-			.yellow { background: #ffbd2e; }
-			.green { background: #27c93f; }
-
-			.window-title {
-				font-family: "Courier New", monospace;
-				font-size: 12px;
-				color: #888;
-				margin-left: 10px;
-			}
-
-			.window-body {
-				padding: 20px;
-				font-family: "Courier New", monospace;
-				color: var(--text-bright);
-			}
-
-			.mission-title {
-				color: var(--primary);
-				font-size: 1.2em;
-				margin: 15px 0;
-				text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
-			}
-
-			.roadmap-grid {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-				gap: 15px;
-				margin: 20px 0;
-				border-top: 1px solid #222;
-				padding-top: 20px;
-			}
-
-			.step {
-				background: #0a0a0a;
-				padding: 15px;
-				border: 1px solid #1a1a1a;
-				transition: transform 0.2s;
-			}
-
-			.step:hover {
-				border-color: var(--primary);
-				transform: translateY(-3px);
-			}
-
-			.step-num {
-				color: var(--primary);
-				font-weight: bold;
-				font-size: 0.8em;
-				display: block;
-				margin-bottom: 5px;
-			}
-
-			.step h4 { margin: 0 0 5px 0; font-size: 0.9em; color: #fff; }
-			.step p { margin: 0; font-size: 0.75em; color: #777; line-height: 1.4; }
-
-			.status-msg {
-				font-size: 0.8em;
-				color: var(--primary);
-				opacity: 0.7;
-				margin-top: 15px;
-			}
-
-			@keyframes fadeIn {
-				from { opacity: 0; transform: translateY(10px); }
-				to { opacity: 1; transform: translateY(0); }
-			}
-
-			/* Sembunyikan saat search aktif */
-			.is-searching .about-section { display: none; }
-		</style>
-
-        <div class="search-area">
-            <div class="search-wrapper">
-                <span>grep</span>
-                <input type="text" id="materiSearch" class="search-input" placeholder="filter...">
+    <div class="portal-container">
+        <aside class="sidebar-left">
+            <div class="about-card" id="aboutSource">
+                <div class="about-card-header">
+                    <span>about_portal.sys</span>
+                    <span>ver 1.0.4</span>
+                </div>
+                <div class="about-card-body">
+                    <h2>MISSION: EXPLOIT MASTER</h2>
+                    <p>Pelajari tahapan pengembangan exploit secara step-by-step dari nol hingga tingkat lanjut.</p>
+                    <div class="mini-roadmap">
+                        <div class="roadmap-item"><span>01</span> Fundamentals</div>
+                        <div class="roadmap-item"><span>02</span> Basic Overflow</div>
+                        <div class="roadmap-item"><span>03</span> Bypassing Protections</div>
+                        <div class="roadmap-item"><span>04</span> Advanced Mastery</div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </aside>
 
-        <nav id="materiWrapper" class="materi-list not-searching">
-            
-            <div id="originalContainer">
-				{% for cat_name in site.kategori %}
-                {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
-					
-					<span class="list-label" style="margin-top: 15px; font-weight: bold;">./{{ cat_name }}</span>
-					{% assign items_urut = materi_per_kategori | sort: "order" %}
-					{% for item in items_urut %}
-						<a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
-					{% endfor %}
-					
-				{% endfor %}
+        <main>
+            <div class="terminal-header">
+                <h1>coder@term:~/<span></span>$ ls -la</h1>
             </div>
 
-            <div id="searchResults"></div>
+            <div class="search-area">
+                <div class="search-wrapper">
+                    <span>grep</span>
+                    <input type="text" id="materiSearch" class="search-input" placeholder="filter...">
+                </div>
+            </div>
 
-        </nav>
-    </main>
+            <nav id="materiWrapper" class="materi-list not-searching">
+                <div id="originalContainer">
+                    {% for cat_name in site.kategori %}
+                        {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
+                        <span class="list-label" style="margin-top: 15px; font-weight: bold;">./{{ cat_name }}</span>
+                        {% assign items_urut = materi_per_kategori | sort: "order" %}
+                        {% for item in items_urut %}
+                            <a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div id="searchResults"></div>
+            </nav>
+        </main>
+    </div>
 
     <footer>
-        &copy; 2026 <span style="color: #aaa;">Underground Coder</span>
+        &copy; 2026 <span>Underground Coder</span><br>
+        <small style="color: #333;">Security is an illusion, anonymity is a choice.</small>
     </footer>
 
     <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
-
     <script>
-        // Inisialisasi Search
+        // Toggle About untuk Mobile
+        function toggleAbout() {
+            const overlay = document.getElementById('aboutOverlay');
+            const content = document.getElementById('mobileAboutContent');
+            const source = document.getElementById('aboutSource');
+            
+            if (!overlay.classList.contains('active')) {
+                content.innerHTML = source.innerHTML;
+            }
+            overlay.classList.toggle('active');
+        }
+
+        // Search Engine logic
         const sjs = SimpleJekyllSearch({
             searchInput: document.getElementById('materiSearch'),
             resultsContainer: document.getElementById('searchResults'),
             json: '/search.json',
-            // Template dibuat agar mirip dengan grup kategori asli
             searchResultTemplate: `
                 <div class="result-group" data-category="{category}">
                     <span class="list-label" style="margin-top: 15px; font-weight: bold;">./{category}</span>
@@ -370,17 +272,13 @@
                 </div>
             `,
             noResultsText: '<p class="materi-item" style="color: #ff4444;">[!] No matching records found</p>',
-            success: function() {
-                formatSearchGroups();
-            }
+            success: function() { formatSearchGroups(); }
         });
 
-        // Fungsi untuk merapikan grup kategori agar label tidak duplikat
         function formatSearchGroups() {
             const results = document.getElementById('searchResults');
             const groups = results.querySelectorAll('.result-group');
             let lastCat = "";
-
             groups.forEach(group => {
                 let currentCat = group.getAttribute('data-category');
                 if (currentCat === lastCat) {
@@ -391,14 +289,10 @@
             });
         }
 
-        // Toggle tampilan antara Daftar Asli vs Hasil Search
         document.getElementById('materiSearch').addEventListener('input', function() {
             const wrapper = document.getElementById('materiWrapper');
-            if (this.value.length > 0) {
-                wrapper.classList.replace('not-searching', 'is-searching');
-            } else {
-                wrapper.classList.replace('is-searching', 'not-searching');
-            }
+            wrapper.classList.toggle('is-searching', this.value.length > 0);
+            wrapper.classList.toggle('not-searching', this.value.length === 0);
         });
     </script>
 </body>
