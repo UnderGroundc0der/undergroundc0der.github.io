@@ -3,11 +3,9 @@ layout: kategori-layout
 title: Basic
 permalink: /basic/
 ---
-{% for cat_name in site.kategori %}
-{% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
-<span class="list-label">./{{ cat_name }}</span>
+
+{% assign materi_per_kategori = site.materi | where: "kategori", "basic" %}
 {% assign items_urut = materi_per_kategori | sort: "order" %}
 {% for item in items_urut %}
 	<a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
-{% endfor %}
 {% endfor %}
