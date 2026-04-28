@@ -178,59 +178,41 @@
 		.category-link {
 			display: block;
 			text-decoration: none;
-			margin-top: 20px;
-			margin-bottom: 8px;
+			color: #00ff00; /* Tetap hijau teks agar senada, atau ganti ke #fff jika ingin putih */
+			font-family: 'Courier New', monospace;
 			font-weight: bold;
-			color: #00ff00; /* Warna hijau khas terminal */
-			font-family: 'Courier New', Courier, monospace;
+			margin-top: 25px;
+			margin-bottom: 10px;
+			font-size: 1.1em;
+			transition: opacity 0.2s;
 		}
 
-		.category-link .list-label {
-			padding: 4px 8px;
-			border-radius: 4px;
-			transition: all 0.3s ease;
-			background: rgba(0, 255, 0, 0.05); /* Background tipis */
+		.category-link:hover {
+			opacity: 0.7;
 		}
 
-		.category-link:hover .list-label {
-			background: #00ff00;
-			color: #000; /* Balik warna saat hover */
-			box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-		}
-
-		/* Container untuk materi di bawah kategori */
-		.materi-container {
+		/* Container List Materi */
+		.materi-list {
 			display: flex;
 			flex-direction: column;
-			padding-left: 15px; /* Indentasi agar terlihat seperti isi folder */
-			border-left: 1px solid #333; /* Garis vertikal tipis */
-			margin-left: 10px;
+			padding-left: 20px; /* Indentasi bersih tanpa garis */
 		}
 
-		/* Gaya untuk Item Materi (List Link) */
-		.materi-item {
+		/* Link Materi */
+		.materi-link {
 			text-decoration: none;
-			color: #888;
-			padding: 6px 0;
+			color: #bbbbbb; /* Warna abu-abu soft */
+			padding: 5px 0;
 			font-size: 0.95em;
-			transition: color 0.2s ease, transform 0.2s ease;
-			display: inline-block;
+			transition: all 0.3s ease;
+			border-bottom: 1px solid transparent;
+			width: fit-content; /* Agar garis bawah hanya sepanjang teks */
 		}
 
-		.materi-item:hover {
-			color: #fff;
-			transform: translateX(5px); /* Geser sedikit ke kanan saat hover */
-		}
-
-		/* Menambahkan icon kecil sebelum nama materi menggunakan pseudo-element */
-		.materi-item::before {
-			content: "├─ ";
-			color: #444;
-			margin-right: 5px;
-		}
-
-		.materi-item:last-child::before {
-			content: "└─ ";
+		.materi-link:hover {
+			color: #ffffff; /* Putih terang saat hover */
+			padding-left: 8px; /* Efek dorong sedikit ke kanan */
+			border-bottom: 1px solid #444; /* Garis bawah tipis saat hover */
 		}
 
         footer {
