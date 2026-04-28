@@ -152,7 +152,9 @@
         }
         .search-wrapper span { color: var(--primary); font-family: monospace; font-size: 0.8em; margin-right: 10px; }
         .search-input { background: transparent; border: none; color: #fff; outline: none; width: 150px; font-size: 0.8em; }
-
+		.search-input:focus {
+			border-bottom: 1px solid var(--primary);
+		}
         .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; }
         .list-label {
             padding: 12px 20px; color: #777; 
@@ -361,7 +363,28 @@
                 document.body.style.overflow = ''; // Aktifkan kembali scroll
             }
         }
+		// --- FITUR FILTER / SEARCH ---
+		document.getElementById('materiSearch').addEventListener('input', function(e) {
+			const searchTerm = e.target.value.toLowerCase();
+			// Mengambil semua elemen link materi yang ada di dalam originalContainer
+			const materiItems = document.querySelectorAll('#originalContainer .materi-item');
+			
+			materiItems.forEach(item => {
+				const title = item.textContent.toLowerCase();
+				
+				// Logika pencarian: jika judul mengandung kata kunci, tampilkan. Jika tidak, sembunyikan.
+				if (title.includes(searchTerm)) {
+					item.style.display = 'flex'; // Tampilkan kembali (sesuai layout CSS Anda)
+				} else {
+					item.style.display = 'none'; // Sembunyikan
+				}
+			});
 
+			// Opsional: Tampilkan pesan jika tidak ada hasil
+			const visibleItems = document.querySelectorAll('#originalContainer .materi-item[style="display: flex;"]');
+			// Catatan: Jika Anda tidak menggunakan inline style 'flex', Anda mungkin perlu logika count yang lebih presisi.
+		});
+	
     </script>
 </body>
 </html>
