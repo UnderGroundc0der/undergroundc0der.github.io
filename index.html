@@ -184,7 +184,7 @@
 
     <main class="portal-container">
         <div class="terminal-header">
-            <h1>coder@term:~/ExploitDevelopment<span></span>$ ls -la</h1>
+            <h1>coder@term:~/<span></span>$ ls -la</h1>
         </div>
 
         <div class="search-area">
@@ -200,7 +200,7 @@
 				{% for cat_name in site.kategori %}
                 {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
 					
-					<span class="list-label" style="margin-top: 15px;">Directory: /root/{{ cat_name }}</span>
+					<span class="list-label" style="margin-top: 15px; font-weight: bold;">/root/{{ cat_name }}</span>
 					{% assign items_urut = materi_per_kategori | sort: "order" %}
 					{% for item in items_urut %}
 						<a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
@@ -229,7 +229,7 @@
             // Template dibuat agar mirip dengan grup kategori asli
             searchResultTemplate: `
                 <div class="result-group" data-category="{category}">
-                    <span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{category}</span>
+                    <span class="list-label" style="margin-top: 15px; font-weight: bold;">/root/{category}</span>
                     <a href="{url}" class="materi-item">{title}</a>
                 </div>
             `,
