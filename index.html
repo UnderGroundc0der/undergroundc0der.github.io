@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -11,23 +13,20 @@
             --panel: #151515;
             --text-bright: #e0e0e0; 
             --header-h: 60px;
-            --sidebar-w: 280px;
-            --max-width: 1100px;
-            --accent: #ff9900;
+            --sidebar-w: 350px;
+            --max-width: 1200px;
         }
 
+        /* Sticky Footer Layout */
+        html, body { height: 100%; margin: 0; }
         body { 
             background-color: var(--bg); 
             color: var(--text-bright); 
             font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.7;
-            margin: 0; 
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
-        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
@@ -50,164 +49,223 @@
             letter-spacing: 1px;
         }
 
-        .mobile-controls { display: none; gap: 10px; }
-        .mobile-btn {
-            background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            padding: 5px 10px;
-            cursor: pointer;
-            font-family: monospace;
-            font-size: 0.8em;
-        }
-
-        /* --- LAYOUT STRUCTURE --- */
+        /* Main Layout */
         .portal-container {
+            flex: 1 0 auto;
             margin-top: var(--header-h);
             display: flex;
             max-width: var(--max-width);
             margin-left: auto;
             margin-right: auto;
             width: 100%;
-            gap: 30px;
+            gap: 40px;
             padding: 40px 20px;
             box-sizing: border-box;
         }
 
-        /* --- SIDEBAR ABOUT --- */
+        /* --- SIDEBAR TERMINAL --- */
         .sidebar-left {
             width: var(--sidebar-w);
             min-width: var(--sidebar-w);
             position: sticky;
-            top: 80px;
+            top: 100px;
             height: fit-content;
         }
 
-        .about-card {
-            background: #0a0a0a;
+        .terminal-window {
+            background: #000;
             border: 1px solid #222;
             border-radius: 4px;
             overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
             font-family: "Courier New", monospace;
         }
 
-        .about-card-header {
-            background: #1a1a1a;
-            padding: 8px 12px;
-            font-size: 0.7em;
-            color: #555;
+        .window-header {
+            background: #111;
+            padding: 10px 15px;
             border-bottom: 1px solid #222;
             display: flex;
             justify-content: space-between;
+            align-items: center;
         }
 
-        .about-card-body { padding: 15px; }
-        .about-card-body h2 { 
-            color: var(--primary); 
+        .window-title { font-size: 11px; color: var(--primary); opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+
+        .window-body { padding: 20px; font-size: 0.85em; color: #bbb; line-height: 1.6; }
+        .mission-title { color: #fff; font-size: 1.2em; margin: 0 0 15px 0; border-left: 3px solid var(--primary); padding-left: 10px; }
+        
+        .about-text { margin-bottom: 25px; text-align: justify; }
+
+        .roadmap-detailed { 
+            border-top: 1px solid #1a1a1a; 
+            padding-top: 20px; 
+        }
+
+        .step-entry { 
+            margin-bottom: 25px; 
+        }
+
+        .step-head { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 8px;
+        }
+
+        .step-num { 
+            color: var(--primary);
+            font-family: "Courier New", monospace;
+            font-weight: bold; 
+            font-size: 0.9em; 
+            margin-right: 12px; 
+        }
+
+        .step-label { 
+            color: #fff; 
+            font-weight: bold; 
             font-size: 1em; 
-            margin: 0 0 10px 0; 
+            letter-spacing: 0.5px;
         }
-        .about-card-body p { font-size: 0.8em; color: #888; margin-bottom: 15px; text-align: left; }
 
-        .mini-roadmap { border-top: 1px solid #1a1a1a; padding-top: 10px; }
-        .roadmap-item { display: block; font-size: 0.75em; margin-bottom: 5px; color: #666; }
-        .roadmap-item span { color: var(--primary); margin-right: 5px; }
+        .step-info { 
+            color: #777; 
+            font-size: 0.85em; 
+            display: block; 
+            margin-left: 0; 
+            text-align: justify;
+            line-height: 1.5;
+        }
 
         /* --- MAIN CONTENT --- */
         main { flex: 1; min-width: 0; }
 
         .terminal-header h1 {
             font-family: "Courier New", monospace;
-            font-size: 1.4em;
-            color: #fff;
-            margin: 0 0 20px 0;
+            font-size: 1.4em; color: #fff; margin: 0 0 25px 0;
         }
         .terminal-header h1 span { color: var(--primary); }
 
-        .search-area { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+        .search-area { display: flex; justify-content: flex-end; margin-bottom: 15px; }
         .search-wrapper {
-            display: flex; align-items: center;
-            background: #111; border: 1px solid #222;
-            padding: 4px 12px; border-radius: 4px; width: 180px;
+            background: #111; border: 1px solid #222; padding: 6px 12px;
+            display: flex; align-items: center; border-radius: 4px;
         }
-        .search-wrapper span { font-family: monospace; font-size: 0.75em; color: var(--primary); margin-right: 8px; }
-        .search-input { background: transparent; border: none; color: #fff; outline: none; width: 100%; font-size: 0.8em; }
+        .search-wrapper span { color: var(--primary); font-family: monospace; font-size: 0.8em; margin-right: 10px; }
+        .search-input { background: transparent; border: none; color: #fff; outline: none; width: 150px; font-size: 0.8em; }
 
-        .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; padding: 10px 0; }
+        .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; }
         .list-label {
-            font-family: monospace; font-size: 0.75em; color: #777; 
-            padding: 10px 20px; display: block; border-bottom: 1px solid #111;
-            text-transform: uppercase;
+            padding: 12px 20px; color: #444; font-family: monospace; font-size: 0.75em;
+            border-bottom: 1px solid #111; display: block;
         }
 
         .materi-item {
-            display: flex; align-items: center; color: var(--text-bright);
-            text-decoration: none; padding: 12px 20px; font-size: 0.95em;
-            font-family: "Courier New", monospace; transition: 0.2s;
+            display: flex; align-items: center; padding: 14px 20px;
+            color: var(--text-bright); text-decoration: none; font-family: monospace;
+            border-left: 3px solid transparent; transition: 0.2s;
         }
-        .materi-item:hover { background: rgba(0,255,0,0.05); color: var(--primary); padding-left: 28px; }
-        .materi-item::before { content: "»"; margin-right: 15px; color: #444; }
-
-        /* --- MOBILE OVERLAY --- */
-        .overlay-about {
-            position: fixed; top: 0; right: -100%; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); z-index: 2000; transition: 0.4s;
-            padding: 40px 20px; box-sizing: border-box;
+        .materi-item:hover {
+            background: rgba(0,255,0,0.05); color: var(--primary);
+            border-left: 3px solid var(--primary); padding-left: 28px;
         }
-        .overlay-about.active { right: 0; }
-
-        /* Logic for Search Display */
-        .is-searching #originalContainer { display: none; }
-        .not-searching #searchResults { display: none; }
 
         footer {
-            background: var(--panel); border-top: 1px solid #333;
-            padding: 30px; text-align: center; font-family: monospace;
-            font-size: 0.8em; color: #555;
+            flex-shrink: 0; background: var(--panel); border-top: 1px solid #333;
+            padding: 40px 20px; text-align: center; color: #555; font-family: monospace; font-size: 0.85em;
+        }
+
+        /* --- RESPONSIVE LOGIC --- */
+        .mobile-btn {
+            display: none; /* Sembunyi secara default */
+            background: transparent; 
+            border: 1px solid var(--primary);
+            color: var(--primary); 
+            padding: 5px 12px; 
+            font-family: monospace; 
+            cursor: pointer;
+            font-size: 0.8em;
         }
 
         @media screen and (max-width: 1024px) {
             .sidebar-left { display: none; }
-            .mobile-controls { display: flex; }
+            .mobile-btn { display: inline-block; } /* Munculkan hanya di mobile/tablet */
+            .desktop-status { display: none; } /* Sembunyikan status demi space */
             .portal-container { flex-direction: column; padding-top: 20px; }
         }
+
+        /* Overlay */
+        .overlay-about {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); z-index: 2000; visibility: hidden; opacity: 0; transition: 0.3s;
+            padding: 30px; box-sizing: border-box; overflow-y: auto;
+        }
+        .overlay-about.active { visibility: visible; opacity: 1; }
     </style>
 </head>
 <body>
 
     <header>
         <a href="/" class="group-logo">underground_coder:<span>_></span></a>
-        <div class="mobile-controls">
-            <button class="mobile-btn" onclick="toggleAbout()">[ ABOUT ]</button>
-        </div>
-        <div class="desktop-status" style="font-family: monospace; font-size: 0.8em; color: #777;">
-            <span style="color: var(--primary);">●</span> SYSTEM_ACTIVE
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <button class="mobile-btn" id="openMobileAbout" onclick="toggleAbout()">[ MENU_INFO ]</button>
+            <div class="desktop-status" style="font-family: monospace; font-size: 0.75em; color: #444;">
+                <span style="color: var(--primary);">●</span> SYSTEM_READY
+            </div>
         </div>
     </header>
 
     <div id="aboutOverlay" class="overlay-about">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <span style="color: var(--primary); font-family: monospace;">> SYSTEM_INFO</span>
-            <button class="mobile-btn" onclick="toggleAbout()">[ CLOSE ]</button>
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
+            <button class="mobile-btn" onclick="toggleAbout()">[ CLOSE_X ]</button>
         </div>
-        <div id="mobileAboutContent"></div>
+        <div id="mobileContent"></div>
     </div>
 
     <div class="portal-container">
         <aside class="sidebar-left">
-            <div class="about-card" id="aboutSource">
-                <div class="about-card-header">
-                    <span>about_portal.sys</span>
-                    <span>ver 1.0.4</span>
+            <div class="terminal-window" id="terminalSource">
+                <div class="window-header">
+                    <span class="window-title">man exploit_dev.8</span>
+                    <span style="color: #333; font-size: 10px;">PID: 4401</span>
                 </div>
-                <div class="about-card-body">
-                    <h2>MISSION: EXPLOIT MASTER</h2>
-                    <p>Pelajari tahapan pengembangan exploit secara step-by-step dari nol hingga tingkat lanjut.</p>
-                    <div class="mini-roadmap">
-                        <div class="roadmap-item"><span>01</span> Fundamentals</div>
-                        <div class="roadmap-item"><span>02</span> Basic Overflow</div>
-                        <div class="roadmap-item"><span>03</span> Bypassing Protections</div>
-                        <div class="roadmap-item"><span>04</span> Advanced Mastery</div>
+                <div class="window-body">
+                    <h2 class="mission-title">cat /system/info</h2>
+                    <p class="about-text">
+                        Underground Coder adalah repositori dokumentasi teknis yang berfokus pada seni manipulasi memori dan pengembangan eksploitasi. Portal ini dirancang bagi mereka yang ingin memahami bagaimana perangkat lunak bekerja di tingkat paling rendah, mengidentifikasi kerentanan kritis, dan membangun kode eksploitasi fungsional dari nol tanpa ketergantungan pada alat otomatis.
+                    </p>
+                    
+                    <div class="roadmap-detailed">
+                        <div class="step-entry">
+                            <div class="step-head">
+                                <span class="step-num">0x01</span>
+                                <span class="step-label">The Fundamentals</span>
+                            </div>
+                            <span class="step-info">Memahami fondasi sistem: Assembly x86/x64, cara kerja register, arsitektur CPU, serta manajemen memori antara Stack dan Heap.</span>
+                        </div>
+                        
+                        <div class="step-entry">
+                            <div class="step-head">
+                                <span class="step-num">0x02</span>
+                                <span class="step-label">Memory Corruption</span>
+                            </div>
+                            <span class="step-info">Teknik dasar pengambilalihan alur program melalui Buffer Overflow, manipulasi register EIP/RIP, serta pembuatan Shellcode kustom.</span>
+                        </div>
+
+                        <div class="step-entry">
+                            <div class="step-head">
+                                <span class="step-num">0x03</span>
+                                <span class="step-label">Defense Bypassing</span>
+                            </div>
+                            <span class="step-info">Strategi modern untuk menembus proteksi sistem operasi seperti bypass ASLR menggunakan memory leaks dan menembus DEP dengan ROP Chains.</span>
+                        </div>
+
+                        <div class="step-entry">
+                            <div class="step-head">
+                                <span class="step-num">0x04</span>
+                                <span class="step-label">Advanced Research</span>
+                            </div>
+                            <span class="step-info">Eksplorasi tingkat lanjut pada kerentanan logika, Heap Grooming, eksploitasi Kernel, hingga otomatisasi riset keamanan tingkat master.</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -215,21 +273,21 @@
 
         <main>
             <div class="terminal-header">
-                <h1>coder@term:~/<span></span>$ ls -la</h1>
+                <h1>coder@term:~/<span></span>$ ls -la --root</h1>
             </div>
 
             <div class="search-area">
                 <div class="search-wrapper">
                     <span>grep</span>
-                    <input type="text" id="materiSearch" class="search-input" placeholder="filter...">
+                    <input type="text" id="materiSearch" class="search-input" placeholder="filter_content...">
                 </div>
             </div>
 
-            <nav id="materiWrapper" class="materi-list not-searching">
+            <nav id="materiWrapper" class="materi-list">
                 <div id="originalContainer">
                     {% for cat_name in site.kategori %}
                         {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
-                        <span class="list-label" style="margin-top: 15px; font-weight: bold;">./{{ cat_name }}</span>
+                        <span class="list-label">./{{ cat_name }}</span>
                         {% assign items_urut = materi_per_kategori | sort: "order" %}
                         {% for item in items_urut %}
                             <a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
@@ -242,57 +300,43 @@
     </div>
 
     <footer>
-        &copy; 2026 <span>Underground Coder</span><br>
-        <small style="color: #333;">Security is an illusion, anonymity is a choice.</small>
+        <div style="margin-bottom: 10px;">
+            &copy; 2026 <span style="color: var(--primary);">Underground Coder</span> | Project: ExploitMantra
+        </div>
+        <small style="color: #222;">From zero, by zero, for zero, to zero-day</small>
     </footer>
 
     <script src="https://unpkg.com/simple-jekyll-search@latest/dest/simple-jekyll-search.min.js"></script>
     <script>
-        // Toggle About untuk Mobile
         function toggleAbout() {
             const overlay = document.getElementById('aboutOverlay');
-            const content = document.getElementById('mobileAboutContent');
-            const source = document.getElementById('aboutSource');
+            const mobileContent = document.getElementById('mobileContent');
+            const source = document.getElementById('terminalSource');
             
             if (!overlay.classList.contains('active')) {
-                content.innerHTML = source.innerHTML;
+                // Salin konten dari sidebar ke overlay mobile saat dibuka
+                mobileContent.innerHTML = source.innerHTML;
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Kunci scroll latar belakang
+            } else {
+                overlay.classList.remove('active');
+                document.body.style.overflow = ''; // Aktifkan kembali scroll
             }
-            overlay.classList.toggle('active');
         }
 
-        // Search Engine logic
+        // Inisialisasi Search
         const sjs = SimpleJekyllSearch({
             searchInput: document.getElementById('materiSearch'),
             resultsContainer: document.getElementById('searchResults'),
             json: '/search.json',
-            searchResultTemplate: `
-                <div class="result-group" data-category="{category}">
-                    <span class="list-label" style="margin-top: 15px; font-weight: bold;">./{category}</span>
-                    <a href="{url}" class="materi-item">{title}</a>
-                </div>
-            `,
-            noResultsText: '<p class="materi-item" style="color: #ff4444;">[!] No matching records found</p>',
-            success: function() { formatSearchGroups(); }
+            searchResultTemplate: '<a href="{url}" class="materi-item">{title}</a>',
+            noResultsText: '<p class="materi-item" style="color: #ff4444;">[!] No matching records found</p>'
         });
 
-        function formatSearchGroups() {
-            const results = document.getElementById('searchResults');
-            const groups = results.querySelectorAll('.result-group');
-            let lastCat = "";
-            groups.forEach(group => {
-                let currentCat = group.getAttribute('data-category');
-                if (currentCat === lastCat) {
-                    const label = group.querySelector('.list-label');
-                    if (label) label.remove();
-                }
-                lastCat = currentCat;
-            });
-        }
-
+        // Kontrol tampilan saat mencari
         document.getElementById('materiSearch').addEventListener('input', function() {
-            const wrapper = document.getElementById('materiWrapper');
-            wrapper.classList.toggle('is-searching', this.value.length > 0);
-            wrapper.classList.toggle('not-searching', this.value.length === 0);
+            const orig = document.getElementById('originalContainer');
+            orig.style.display = (this.value.length > 0) ? 'none' : 'block';
         });
     </script>
 </body>
