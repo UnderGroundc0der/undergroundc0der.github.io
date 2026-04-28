@@ -28,3 +28,13 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  
+kategori:
+  - Basic
+  - Web Application
+  - Network and Protocol
+  - Memory Corruption
+  - Binary Exploitation
+  - Client Side
+  - Python Basic
+  - Miscellaneous

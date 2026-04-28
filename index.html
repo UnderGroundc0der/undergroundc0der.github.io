@@ -176,7 +176,7 @@
 <body>
 
     <header>
-        <a href="#" class="group-logo">underground_coder:<span>_></span></a>
+        <a href="/" class="group-logo">underground_coder:<span>_></span></a>
         <div style="font-family: 'Courier New', monospace; font-size: 0.8em; color: #777;">
             <span style="color: var(--primary);">●</span> SYSTEM_ACTIVE
         </div>
@@ -184,7 +184,7 @@
 
     <main class="portal-container">
         <div class="terminal-header">
-            <h1>coder@term:~/<span></span>$ ls -la</h1>
+            <h1>coder@term:~/ExploitDevelopment<span></span>$ ls -la</h1>
         </div>
 
         <div class="search-area">
@@ -197,14 +197,16 @@
         <nav id="materiWrapper" class="materi-list not-searching">
             
             <div id="originalContainer">
-                {% assign materi_per_kategori = site.materi | group_by: "kategori" %}
-                {% for group in materi_per_kategori %}
-                    <span class="list-label" style="margin-top: 15px;">Directory: /ROOT/{{ group.name }}</span>
-                    {% assign items_urut = group.items | sort: "order" %}
-                    {% for item in items_urut %}
-                        <a href="{{ item.url }}" class="materi-item">{{ item.title }}</a>
-                    {% endfor %}
-                {% endfor %}
+				{% for cat_name in site.kategori %}
+                {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
+					
+					<span class="list-label" style="margin-top: 15px;">Directory: /root/{{ cat_name }}</span>
+					{% assign items_urut = materi_per_kategori | sort: "order" %}
+					{% for item in items_urut %}
+						<a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
+					{% endfor %}
+					
+				{% endfor %}
             </div>
 
             <div id="searchResults"></div>
