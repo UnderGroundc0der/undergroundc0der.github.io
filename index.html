@@ -173,6 +173,65 @@
             background: rgba(0,255,0,0.05); color: var(--primary);
             border-left: 3px solid var(--primary); padding-left: 28px;
         }
+		
+		/* Gaya untuk Link Kategori (Judul Kategori) */
+		.category-link {
+			display: block;
+			text-decoration: none;
+			margin-top: 20px;
+			margin-bottom: 8px;
+			font-weight: bold;
+			color: #00ff00; /* Warna hijau khas terminal */
+			font-family: 'Courier New', Courier, monospace;
+		}
+
+		.category-link .list-label {
+			padding: 4px 8px;
+			border-radius: 4px;
+			transition: all 0.3s ease;
+			background: rgba(0, 255, 0, 0.05); /* Background tipis */
+		}
+
+		.category-link:hover .list-label {
+			background: #00ff00;
+			color: #000; /* Balik warna saat hover */
+			box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+		}
+
+		/* Container untuk materi di bawah kategori */
+		.materi-container {
+			display: flex;
+			flex-direction: column;
+			padding-left: 15px; /* Indentasi agar terlihat seperti isi folder */
+			border-left: 1px solid #333; /* Garis vertikal tipis */
+			margin-left: 10px;
+		}
+
+		/* Gaya untuk Item Materi (List Link) */
+		.materi-item {
+			text-decoration: none;
+			color: #888;
+			padding: 6px 0;
+			font-size: 0.95em;
+			transition: color 0.2s ease, transform 0.2s ease;
+			display: inline-block;
+		}
+
+		.materi-item:hover {
+			color: #fff;
+			transform: translateX(5px); /* Geser sedikit ke kanan saat hover */
+		}
+
+		/* Menambahkan icon kecil sebelum nama materi menggunakan pseudo-element */
+		.materi-item::before {
+			content: "├─ ";
+			color: #444;
+			margin-right: 5px;
+		}
+
+		.materi-item:last-child::before {
+			content: "└─ ";
+		}
 
         footer {
             flex-shrink: 0; background: var(--panel); border-top: 1px solid #333;
@@ -334,7 +393,7 @@
                     {% for cat_name in site.kategori %}
 						{% assign category_slug = cat_name | slugify %}
                         {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
-                        <a href="{{ '/' | append: category_slug | append: '/' | relative_url }}" ><span class="list-label">./{{ cat_name }}</span></a>
+                        <a href="{{ '/' | append: category_slug | append: '/' | relative_url }}" class="category-link"><span class="list-label">./{{ cat_name }}</span></a>
                         {% assign items_urut = materi_per_kategori | sort: "order" %}
                         {% for item in items_urut %}
                             <a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
