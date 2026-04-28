@@ -13,10 +13,6 @@ collections:
     output: true
     permalink: /:collections/:path/
 
-  kategori:
-    output: true  # WAJIB agar file di dalam _kategori jadi halaman .html
-    permalink: /:name/ # Opsional, jika ingin otomatis mengikuti nama file
-
 # Pengaturan Build
 markdown: kramdown
 highlighter: rouge
