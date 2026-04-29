@@ -283,7 +283,7 @@
 
 
 			
-			{% assign materi_per_kategori = site.materi | group_by: "kategori" %}
+			{% assign materi_per_kategori = site.kategori | group_by: "kategori" %}
 			  
 			{% for group in materi_per_kategori %}
 			<div class="nav-section" id="sec-basics">
