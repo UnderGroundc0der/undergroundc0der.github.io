@@ -282,20 +282,21 @@
             </div>
 
 
-			
-			{% assign materi_per_kategori = site.kategori | group_by: "kategori" %}
-			  
-			{% for group in materi_per_kategori %}
-			<div class="nav-section" id="sec-basics">
-			<button class="category-trigger" onclick="toggleSection('sec-basics')">{{ group.name }}</button>
-				<div class="nav-content">
-			  {% assign items_urut = group.items | sort: "order" %}
-			  {% for item in items_urut %}
-				<a href="{{ item.url }}" class="side-link {% if page.url == item.url %}active{% endif %}">{{ item.title }}</a>
-			  {% endfor %}
+			{% for cat_name in site.kategori %}
+				{% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
+				  
+				{% for group in materi_per_kategori %}
+				<div class="nav-section" id="sec-basics">
+				<button class="category-trigger" onclick="toggleSection('sec-basics')">{{ group.name }}</button>
+					<div class="nav-content">
+				  {% assign items_urut = group.items | sort: "order" %}
+				  {% for item in items_urut %}
+					<a href="{{ item.url }}" class="side-link {% if page.url == item.url %}active{% endif %}">{{ item.title }}</a>
+				  {% endfor %}
+					</div>
 				</div>
-			</div>
-			{% endfor %}    
+				{% endfor %}    
+			{% endfor %}
 
             <a href="#" class="side-link" style="color: var(--accent); margin-top: 20px; border: none;">[ ../Back ]</a>
         </nav>
