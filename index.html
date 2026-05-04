@@ -165,10 +165,10 @@
 		}
         .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; }
         .list-label {
-            padding: 12px 20px; color: #777; 
+            padding: 12px 20px; color: #fff; 
 			font-family: "Courier New", monospace;
 			font-space: 0.05em;
-			font-size: 1.1em; 
+			--font-size: 1.1em; 
 			font-weight: bold !important;
             border-bottom: 1px solid #111; display: block;
         }
@@ -385,7 +385,7 @@
                     {% for cat_name in site.kategori %}
 						{% assign category_slug = cat_name | slugify %}
                         {% assign materi_per_kategori = site.materi | where: "kategori", cat_name %}
-                        <a href="{{ '/' | append: category_slug | append: '/' | relative_url }}" class="category-link"><span class="list-label">./{{ cat_name }}</span></a>
+                        <a href="{{ '/' | append: category_slug | append: '/' | relative_url }}" class="category-link"><span class="list-label">{{ cat_name }}</span></a>
                         {% assign items_urut = materi_per_kategori | sort: "order" %}
                         {% for item in items_urut %}
                             <a href="{{ item.url | relative_url }}" class="materi-item">{{ item.title }}</a>
