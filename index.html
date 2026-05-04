@@ -8,7 +8,8 @@
     <title>Exploit Development - Underground Coder</title>
     <style>
         :root {
-            --primary: #00ff00;
+            --primary: #4fc1ff;
+			--primaryInactive: #023c5c;
             --bg: #0d0d0d;
             --panel: #151515;
             --text-bright: #e0e0e0; 
@@ -165,7 +166,7 @@
 		}
         .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; }
         .list-label {
-            padding: 0px 20px; color: #fff; 
+            padding: 0px 0px; color: #fff; 
 			font-family: "Courier New", monospace;
 			font-space: 0.05em;
 			--font-size: 1.1em; 
@@ -174,14 +175,21 @@
         }
 
         .materi-item {
-            display: flex; align-items: center; padding: 14px 20px;
+            display: flex; align-items: center; 
+			padding: 15px 20px;
             color: var(--text-bright); text-decoration: none; font-family: monospace;
-            border-left: 3px solid transparent; transition: 0.2s;
+            
+			border-left: 3px solid transparent; transition: 0.2s;
 			font-size: 1.1em !important;
+			margin-right: 20px;
+			margin-bottom: 10px;
+			
+			border: 0.1em solid var(--primaryInactive);
+			border-left: 3px solid var(--primaryInactive); padding-left: 20px;
         }
         .materi-item:hover {
             background: rgba(0,255,0,0.05); color: var(--primary);
-            border-left: 3px solid var(--primary); padding-left: 28px;
+            border-left: 3px solid var(--primary); padding-left: 20px;
         }
 		
 		/* Gaya untuk Link Kategori (Judul Kategori) */
@@ -206,6 +214,7 @@
 			display: flex;
 			flex-direction: column;
 			padding-left: 20px; /* Indentasi bersih tanpa garis */
+			
 		}
 
 		/* Link Materi */
@@ -221,8 +230,8 @@
 
 		.materi-link:hover {
 			color: #ffffff; /* Putih terang saat hover */
-			padding-left: 8px; /* Efek dorong sedikit ke kanan */
-			border-bottom: 1px solid #444; /* Garis bawah tipis saat hover */
+			padding-left: 5px; /* Efek dorong sedikit ke kanan */
+			border: 1px solid #444; /* Garis bawah tipis saat hover */
 		}
 
         footer {
