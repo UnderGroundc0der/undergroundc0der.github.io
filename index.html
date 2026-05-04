@@ -7,141 +7,256 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exploit Development - Underground Coder</title>
     <style>
-    :root {
-        --primary: #00ff00; /* Warna terminal hijau */
-        --bg: #0d0d0d;
-        --panel: #151515;
-        --text-bright: #d4d4d4; /* Sedikit lebih redup sesuai terminal */
-        --header-h: 60px;
-        --sidebar-w: 350px;
-        --max-width: 1200px;
-        --font-mono: 'Consolas', 'Monaco', 'Courier New', monospace;
-    }
+        :root {
+            --primary: #00ff00;
+            --bg: #0d0d0d;
+            --panel: #151515;
+            --text-bright: #e0e0e0; 
+            --header-h: 60px;
+            --sidebar-w: 350px;
+            --max-width: 1200px;
+        }
 
-    /* Sticky Footer Layout */
-    html, body { height: 100%; margin: 0; }
-    body { 
-        background-color: var(--bg); 
-        color: var(--text-bright); 
-        font-family: var(--font-mono); /* Ubah ke monospace global */
-        display: flex;
-        flex-direction: column;
-    }
+        /* Sticky Footer Layout */
+        html, body { height: 100%; margin: 0; }
+        body { 
+            background-color: var(--bg); 
+            color: var(--text-bright); 
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+        }
 
-    /* Header */
-    header {
-        position: fixed;
-        top: 0; left: 0; width: 100%;
-        height: var(--header-h);
-        background: var(--panel);
-        border-bottom: 1px solid #333;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 20px;
-        box-sizing: border-box;
-        z-index: 1000;
-    }
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: var(--header-h);
+            background: var(--panel);
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
 
-    .group-logo {
-        color: var(--primary);
-        font-family: var(--font-mono);
-        font-weight: bold;
-        text-decoration: none;
-        letter-spacing: 1px;
-    }
+        .group-logo {
+            color: var(--primary);
+            font-family: "Courier New", monospace;
+            font-weight: bold;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
 
-    /* --- SIDEBAR TERMINAL --- */
-    .sidebar-left {
-        width: var(--sidebar-w);
-        min-width: var(--sidebar-w);
-        position: sticky;
-        top: 100px;
-        height: fit-content;
-    }
+        /* Main Layout */
+        .portal-container {
+            flex: 1 0 auto;
+            margin-top: var(--header-h);
+            display: flex;
+            max-width: var(--max-width);
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            gap: 40px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+        }
 
-    .terminal-window {
-        background: #000;
-        border: 1px solid #222;
-        border-radius: 4px;
-        overflow: hidden;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.7);
-        font-family: var(--font-mono);
-    }
+        /* --- SIDEBAR TERMINAL --- */
+        .sidebar-left {
+            width: var(--sidebar-w);
+            min-width: var(--sidebar-w);
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
 
-    .window-header {
-        background: #111;
-        padding: 10px 15px;
-        border-bottom: 1px solid #222;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+        .terminal-window {
+            background: #000;
+            border: 1px solid #222;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.7);
+            font-family: "Courier New", monospace;
+        }
 
-    .window-title { font-size: 11px; color: var(--primary); opacity: 0.8; text-transform: uppercase; }
-    .window-body { padding: 20px; font-size: 0.85em; color: #bbb; line-height: 1.5; }
-    .mission-title { color: #fff; font-size: 1.1em; margin: 0 0 15px 0; border-left: 3px solid var(--primary); padding-left: 10px; }
-    
-    .step-num { color: #4fc1ff; margin-right: 12px; } /* Warna aksen biru untuk nomor */
-    .step-label { color: #fff; font-weight: bold; }
+        .window-header {
+            background: #111;
+            padding: 10px 15px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-    /* --- MAIN CONTENT & MATERI LIST --- */
-    main { flex: 1; min-width: 0; padding-bottom: 50px; }
+        .window-title { font-size: 11px; color: var(--primary); opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
 
-    .terminal-header h1 {
-        font-family: var(--font-mono);
-        font-size: 1.3em; color: #fff; margin: 0 0 25px 0;
-    }
-    
-    /* Search Box */
-    .search-wrapper {
-        background: #111; border: 1px solid #333; padding: 6px 12px;
-        display: flex; align-items: center; border-radius: 4px;
-        transition: border-color 0.3s, box-shadow 0.3s;
-    }
-    .search-wrapper:focus-within {
-        border-color: var(--primary);
-        box-shadow: 0 0 8px rgba(0, 255, 0, 0.1);
-    }
-    .search-input { background: transparent; border: none; color: #fff; outline: none; width: 150px; font-family: var(--font-mono); }
+        .window-body { padding: 20px; font-size: 0.85em; color: #bbb; line-height: 1.6; }
+        .mission-title { color: #fff; font-size: 1.2em; margin: 0 0 15px 0; border-left: 3px solid var(--primary); padding-left: 10px; }
+        
+        .about-text { margin-bottom: 25px; text-align: justify; }
 
-    /* List Materi (Gaya Terminal) */
-    .materi-list {
-        display: flex;
-        flex-direction: column;
-        margin-top: 20px;
-    }
+        .roadmap-detailed { 
+            border-top: 1px solid #1a1a1a; 
+            padding-top: 20px; 
+        }
 
-    .category-link {
-        display: block;
-        text-decoration: none;
-        color: #4fc1ff; /* Biru/Cyan untuk path kategori */
-        font-weight: bold;
-        margin-top: 20px;
-        margin-bottom: 5px;
-        font-size: 1em;
-    }
+        .step-entry { 
+            margin-bottom: 25px; 
+        }
 
-    .materi-item {
-        display: block;
-        text-decoration: none;
-        color: #d4d4d4;
-        padding: 4px 0 4px 20px; /* Indentasi untuk hirarki */
-        font-size: 0.95em;
-        transition: all 0.2s ease;
-    }
+        .step-head { 
+            display: flex; 
+            align-items: center; 
+            margin-bottom: 8px;
+        }
 
-    .materi-item:hover {
-        color: #fff;
-        background: rgba(255,255,255,0.05);
-    }
-    
-    /* Footer */
-    footer {
-        flex-shrink: 0; background: var(--panel); border-top: 1px solid #333;
-        padding: 30px 20px; text-align: center; color: #555; font-family: var(--font-mono); font-size: 0.8em;
-    }
-</style>
+        .step-num { 
+            color: var(--primary);
+            font-family: "Courier New", monospace;
+            font-weight: bold; 
+            font-size: 0.9em; 
+            margin-right: 12px; 
+        }
+
+        .step-label { 
+            color: #fff; 
+            font-weight: bold; 
+            font-size: 1em; 
+            letter-spacing: 0.5px;
+        }
+
+        .step-info { 
+            color: #777; 
+            font-size: 0.85em; 
+            display: block; 
+            margin-left: 0; 
+            text-align: justify;
+            line-height: 1.5;
+        }
+
+        /* --- MAIN CONTENT --- */
+        main { flex: 1; min-width: 0; font-family: "Courier New", monospace !important;}
+
+        .terminal-header h1 {
+            font-family: "Courier New", monospace;
+            font-size: 1.4em; color: #fff; margin: 0 0 25px 0;
+        }
+        .terminal-header h1 span { color: var(--primary); }
+
+        .search-area { display: flex; justify-content: flex-end; margin-bottom: 15px; }
+        .search-wrapper {
+            background: #111; border: 1px solid #222; padding: 6px 12px;
+            display: flex; align-items: center; border-radius: 4px;
+        }
+        .search-wrapper span { color: var(--primary); font-family: monospace; font-size: 0.8em; margin-right: 10px; }
+        .search-input { background: transparent; border: none; color: #fff; outline: none; width: 150px; font-size: 0.8em; }
+		/* Memberikan efek halus saat transisi warna */
+		.search-wrapper {
+			transition: border-color 0.3s, box-shadow 0.3s;
+			border: 1px solid #222; /* Warna default */
+		}
+
+		/* Mengubah warna wrapper saat input di dalamnya difokuskan */
+		.search-wrapper:focus-within {
+			border-color: var(--primary);
+			box-shadow: 0 0 10px rgba(0, 255, 0, 0.2); /* Efek glow tipis */
+		}
+        .materi-list { background: #0a0a0a; border: 1px solid #222; border-radius: 4px; }
+        .list-label {
+            padding: 12px 20px; color: #777; 
+			font-family: "Courier New", monospace;
+			font-space: 0.05em;
+			font-size: 1.1em; 
+			font-weight: bold !important;
+            border-bottom: 1px solid #111; display: block;
+        }
+
+        .materi-item {
+            display: flex; align-items: center; padding: 14px 20px;
+            color: var(--text-bright); text-decoration: none; font-family: monospace;
+            border-left: 3px solid transparent; transition: 0.2s;
+			font-size: 1.1em !important;
+        }
+        .materi-item:hover {
+            background: rgba(0,255,0,0.05); color: var(--primary);
+            border-left: 3px solid var(--primary); padding-left: 28px;
+        }
+		
+		/* Gaya untuk Link Kategori (Judul Kategori) */
+		.category-link {
+			display: block;
+			text-decoration: none;
+			color: #00ff00; /* Tetap hijau teks agar senada, atau ganti ke #fff jika ingin putih */
+			font-family: 'Courier New', monospace;
+			font-weight: bold;
+			margin-top: 25px;
+			margin-bottom: 10px;
+			font-size: 1.1em;
+			transition: opacity 0.2s;
+		}
+
+		.category-link:hover {
+			opacity: 0.7;
+		}
+
+		/* Container List Materi */
+		.materi-list {
+			display: flex;
+			flex-direction: column;
+			padding-left: 20px; /* Indentasi bersih tanpa garis */
+		}
+
+		/* Link Materi */
+		.materi-link {
+			text-decoration: none;
+			color: #bbbbbb; /* Warna abu-abu soft */
+			padding: 5px 0;
+			font-size: 0.95em;
+			transition: all 0.3s ease;
+			border-bottom: 1px solid transparent;
+			width: fit-content; /* Agar garis bawah hanya sepanjang teks */
+		}
+
+		.materi-link:hover {
+			color: #ffffff; /* Putih terang saat hover */
+			padding-left: 8px; /* Efek dorong sedikit ke kanan */
+			border-bottom: 1px solid #444; /* Garis bawah tipis saat hover */
+		}
+
+        footer {
+            flex-shrink: 0; background: var(--panel); border-top: 1px solid #333;
+            padding: 40px 20px; text-align: center; color: #555; font-family: monospace; font-size: 0.85em;
+        }
+
+        /* --- RESPONSIVE LOGIC --- */
+        .mobile-btn {
+            display: none; /* Sembunyi secara default */
+            background: transparent; 
+            border: 1px solid var(--primary);
+            color: var(--primary); 
+            padding: 5px 12px; 
+            font-family: monospace; 
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .sidebar-left { display: none; }
+            .mobile-btn { display: inline-block; } /* Munculkan hanya di mobile/tablet */
+            .desktop-status { display: none; } /* Sembunyikan status demi space */
+            .portal-container { flex-direction: column; padding-top: 20px; }
+        }
+
+        /* Overlay */
+        .overlay-about {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.98); z-index: 2000; visibility: hidden; opacity: 0; transition: 0.3s;
+            padding: 30px; box-sizing: border-box; overflow-y: auto;
+        }
+        .overlay-about.active { visibility: visible; opacity: 1; }
+    </style>
 </head>
 <body>
 
